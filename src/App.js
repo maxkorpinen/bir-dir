@@ -1,36 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  NavLink
 } from 'react-router-dom';
 
-import Navigation from './components/Navigation';
 import List from './components/List';
 import Add from './components/Add';
 import NotFound from './components/NotFound';
 
-function App() {
-  return (
-      <Router>
+export default class App extends Component {
+  state = {
+    name: 'ys'
+  }
 
-        <Navigation />
+  render() {
+    return (
+      <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/add">Add</NavLink>
+            </li>
+          </ul>
+        </nav>
 
         <Switch>
           <Route exact path="/">
             <List />
           </Route>
-          <Route path="/add">
+          <Route exact path="/add">
             <Add />
           </Route>
           <Route>
             <NotFound />
           </Route>
         </Switch>
-
-      </Router>
-  );
+      </div>
+    </Router>
+    )
+  }
 }
-
-export default App;

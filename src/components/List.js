@@ -4,7 +4,7 @@ export default class List extends Component {
     render() {
         return (
             <div>
-                List of observations
+                <h1>Bir-Dir</h1>
             </div>
         )
     }
