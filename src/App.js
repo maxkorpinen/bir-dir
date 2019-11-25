@@ -6,6 +6,7 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
+import ls from 'local-storage';
 
 import List from './components/List';
 import Add from './components/Add';
@@ -13,7 +14,13 @@ import NotFound from './components/NotFound';
 
 export default class App extends Component {
   state = {
-    name: 'ys'
+    list: []
+  }
+
+  componentDidMount() {
+    this.setState({
+      list: ls.get('birdList') || []
+    })
   }
 
   render() {
