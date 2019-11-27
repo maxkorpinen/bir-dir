@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,44 +14,77 @@ import Add from './components/Add';
 import NotFound from './components/NotFound';
 
 export default class App extends Component {
-  state = {
-    list: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      list: []
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+
+    if (ls('list')) {
+      this.setState({
+        list: ls('list')
+      })
+    } else {
+      this.setState({
+        list: []
+      })
+    }
+  }
+
+  handleSubmit(newObservation) {
+    let list = this.state.list;
+    list.push(newObservation);
+
+    ls('list', list);
+
     this.setState({
-      list: ls.get('birdList') || []
+      list: list
     })
+
+    console.log("state", this.state.list)
+    console.log("ls", ls('list'))
   }
 
   render() {
     return (
       <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/add">Add</NavLink>
-            </li>
-          </ul>
-        </nav>
+        <div>
 
-        <Switch>
-          <Route exact path="/">
-            <List />
-          </Route>
-          <Route exact path="/add">
-            <Add />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/add">Add</NavLink>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+
+            <Route exact path="/" render={(props) =>
+              <List {...props} list={this.state.list} />}>
+            </Route>
+
+            <Route exact path="/add" render={(props) =>
+              <Add {...props} handleSubmit={this.handleSubmit} />}>
+            </Route>
+
+            <Route>
+              <NotFound />
+            </Route>
+
+          </Switch>
+
+        </div>
+      </Router>
     )
   }
 }
