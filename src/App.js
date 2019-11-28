@@ -45,6 +45,8 @@ export default class App extends Component {
     this.setState({
       list: list
     })
+
+    console.log(this.state.list)
   }
 
   clearAll() {

@@ -58,11 +58,12 @@ export default class Add extends Component {
 
         function savePosition(position) {
             newObservation.location.latitude = position.coords.latitude;
-            newObservation.location.longitude = position.coords.longitude
+            newObservation.location.longitude = position.coords.longitude;
+            
         }
 
         getLocation();
-        
+            
         this.props.handleSubmit(newObservation);
 
         this.clearFields();
@@ -70,7 +71,8 @@ export default class Add extends Component {
 
     render() {
         return (
-            <div>
+            <div className="flexContainer">
+            <div className="card">
                 Name: <input id="nameField" name="name" onChange={this.handleChange}></input><br></br>
                 Notes: <input id="notesField" name="notes" onChange={this.handleChange}></input><br></br>
 
@@ -94,7 +96,13 @@ export default class Add extends Component {
                     </label>
                 </div>
 
+                <div>
+                    Upload picture: <input type="file" name="pic" accept="image/*"></input>
+                </div>
+                {/* <input type="file" name="pic" accept="image/*">Upload picture</input> */}
+
                 <button onClick={this.saveObservation}>Send</button>
+            </div>
             </div>
         )
     }

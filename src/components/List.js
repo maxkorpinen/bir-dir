@@ -12,7 +12,9 @@ export default class List extends Component {
             <div>
                 <Sort sortByDate={this.props.sortByDate} sortByName={this.props.sortByName}/>
                 <button onClick={this.props.clearAll}>Clear all</button>
-                {birds}
+                <div className="flexContainer">
+                    {birds}
+                </div>
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './BirdCard.css';
 
 export default class BirdCard extends Component {
 
