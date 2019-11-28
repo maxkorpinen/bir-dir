@@ -22,6 +22,9 @@ export default class App extends Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearAll = this.clearAll.bind(this);
+    this.sortByDate = this.sortByDate.bind(this);
+    this.sortByName = this.sortByName.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +32,6 @@ export default class App extends Component {
     if (ls('list')) {
       this.setState({
         list: ls('list')
-      })
-    } else {
-      this.setState({
-        list: []
       })
     }
   }
@@ -46,9 +45,54 @@ export default class App extends Component {
     this.setState({
       list: list
     })
+  }
 
-    console.log("state", this.state.list)
-    console.log("ls", ls('list'))
+  clearAll() {
+    ls.clear();
+
+    this.setState({
+      list: []
+    })
+  }
+
+  compareDate( a, b ) {
+    if ( (new Date(a.date)) < (new Date(b.date)) ){
+      return -1;
+    }
+    if ( (new Date(a.date)) > (new Date(b.date)) ){
+      return 1;
+    }
+    return 0;
+  }
+
+  compareName(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  }
+  
+  sortByDate() {
+    let list = this.state.list;
+
+    list.sort(this.compareDate);
+
+    this.setState({
+      list: list
+    })
+  }
+
+  sortByName() {
+    let list = this.state.list;
+
+    list.sort(this.compareName);
+
+    this.setState({
+      list: list
+    })
   }
 
   render() {
@@ -70,7 +114,7 @@ export default class App extends Component {
           <Switch>
 
             <Route exact path="/" render={(props) =>
-              <List {...props} list={this.state.list} />}>
+              <List {...props} list={this.state.list} clearAll={this.clearAll} sortByDate={this.sortByDate} sortByName={this.sortByName}/>}>
             </Route>
 
             <Route exact path="/add" render={(props) =>

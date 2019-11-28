@@ -1,5 +1,5 @@
 body {
-  background-color: moccasin;
+  background: linear-gradient(to right, rgb(102, 179, 181), rgb(215, 223, 244));
 }
 
 .App {
