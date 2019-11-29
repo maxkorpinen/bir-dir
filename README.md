@@ -1,3 +1,3 @@
 ## Bir-Dir
 
-Project in progress.
+Project deployed at [https://curly-fear.surge.sh/].
