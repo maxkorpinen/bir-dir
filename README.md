@@ -10,6 +10,8 @@ Other technologies used:
 
 Project demo deployed at https://curly-fear.surge.sh/.
 
+(recommended to open with mobile)
+
 # Instructions
 
 The demo is live and visible online.
