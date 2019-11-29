@@ -9,12 +9,12 @@ export default class List extends Component {
     const birds = this.props.list.map(i => <BirdCard key={i.date} latitude={i.location.latitude} longitude={i.location.longitude} date={i.date} name={i.name} rarity={i.rarity} notes={i.notes} />)
 
         return (
-            <div>
+            <div className="centerAlign">
                 <Sort sortByDate={this.props.sortByDate} sortByName={this.props.sortByName}/>
-                <button onClick={this.props.clearAll}>Clear all</button>
                 <div className="flexContainer">
                     {birds}
                 </div>
+                <button onClick={this.props.clearAll} className="clearBtn">Clear all</button>
             </div>
         )
     }

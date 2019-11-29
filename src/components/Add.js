@@ -9,6 +9,7 @@ export default class Add extends Component {
             notes: "",
             rarity: "",
         }
+
         this.handleChange = this.handleChange.bind(this);
         this.saveObservation = this.saveObservation.bind(this);
         this.clearFields = this.clearFields.bind(this);
@@ -37,7 +38,7 @@ export default class Add extends Component {
         // const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', second: 'numeric' };
 
         let newObservation = {
-            name: this.state.name,
+            name: this.state.name.toUpperCase(),
             notes: this.state.notes,
             rarity: this.state.rarity,
             // date: new Date().toLocaleDateString('fi-FI', dateOptions)
@@ -59,23 +60,30 @@ export default class Add extends Component {
         function savePosition(position) {
             newObservation.location.latitude = position.coords.latitude;
             newObservation.location.longitude = position.coords.longitude;
-            
+
         }
 
         getLocation();
-            
-        this.props.handleSubmit(newObservation);
 
-        this.clearFields();
+        if(this.state.name !== "") {
+            /* Seems like I have a problem with asynchronicity, but for now I have solved it with timeout... */
+            setTimeout((this.props.handleSubmit(newObservation)), 500)
+            this.clearFields();
+            document.getElementById("successMessage").innerHTML = "Observation recorded!"
+        } else {
+            window.alert("Don't forget to add the name of the species :)")
+        }
     }
 
     render() {
         return (
             <div className="flexContainer">
             <div className="card">
-                Name: <input id="nameField" name="name" onChange={this.handleChange}></input><br></br>
-                Notes: <input id="notesField" name="notes" onChange={this.handleChange}></input><br></br>
+                <div className="inputItem">
+                    Name: <input className="textInput" id="nameField" required="required" name="name" onChange={this.handleChange}></input><br></br>
+                </div>
 
+                <div className="inputItem">
                 Rarity:
                 <div className="radio">
                     <label>
@@ -95,13 +103,15 @@ export default class Add extends Component {
                         Extremely rare
                     </label>
                 </div>
-
-                <div>
-                    Upload picture: <input type="file" name="pic" accept="image/*"></input>
                 </div>
-                {/* <input type="file" name="pic" accept="image/*">Upload picture</input> */}
 
-                <button onClick={this.saveObservation}>Send</button>
+                <div className="inputItem">
+                Notes: <input className="textInput" id="notesField" name="notes" onChange={this.handleChange}></input><br></br>
+                </div>
+
+                <button onClick={this.saveObservation}>Add</button>
+                <button onClick={this.clearFields}>Clear</button>
+                <div id="successMessage"></div>
             </div>
             </div>
         )
