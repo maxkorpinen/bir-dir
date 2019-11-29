@@ -1,3 +1,3 @@
 ## Bir-Dir
 
-Project deployed at [https://curly-fear.surge.sh/].
+Project deployed at https://curly-fear.surge.sh/.
